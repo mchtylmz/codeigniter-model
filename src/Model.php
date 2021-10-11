@@ -578,13 +578,31 @@ class Model extends \CI_Model implements \ArrayAccess
      *  // Query builder ORM usage
      *  $this->Model->find()->where_in('id', [3,21,135]);
      *  $this->Model->findAll();
+     * @example
+     *  // Query builder ORM usage
+     *  $this->Model->findAll([], ['id' => 'DESC', 'created_at' => 'ASC']);
      */
-    public static function findAll($condition=[], $limit=null)
+    public static function findAll($condition=[], $orderBy=null, $limit=null)
     {
         $instance = (isset($this)) ? $this : new static;
 
         $query = $instance->_findByCondition($condition);
+        
+        // orderBy
+        if ($orderBy) {
 
+            $type = 'DESC';
+            $column = $orderBy;
+
+            if (is_array($orderBy)) {
+                foreach ($orderBy as $orderColumn => $orderType) {
+                  $query = $query->order_by($orderColumn, $orderType ?? 'DESC');
+                }
+            } else {
+              $query = ($column && $type) ? $query->order_by($column, $type) : $query;
+            }
+        }
+        
         // Limit / offset
         if ($limit) {
 
