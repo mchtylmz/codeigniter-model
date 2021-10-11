@@ -738,6 +738,13 @@ $activeRecords = $this->Model->findAll([10, 11, 12]);
 // Find the active recordd whose type is 'A' and whose status is 1
 $activeRecords = $this->Model->findAll(['type' => 'A', 'status' => 1]);
 
+// Find the active recordd whose type is 'A' and whose status is 1 and order by column name
+$activeRecords = $this->Model->findAll(['type' => 'A', 'status' => 1], 'id');
+
+// Find the active recordd whose type is 'A' and whose status is 1 and order by with array column name => [asscending - asc | descending - desc]
+$activeRecords = $this->Model->findAll(['type' => 'A', 'status' => 1], ['id' => 'ASC']);
+$activeRecords = $this->Model->findAll(['type' => 'A', 'status' => 1], ['id' => 'ASC', 'created_at' => 'ASC']);
+
 // Query builder ORM usage
 $this->Model->find()->where_in('id', [10, 11, 12]);
 $activeRecords = $this->Model->findAll();
