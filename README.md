@@ -758,10 +758,10 @@ foreach ($activeRecords as $activeRecord) {
 *Example of limit:*
 ```php
 // LIMIT 10
-$activeRecords = $this->Model->findAll([], 10);
+$activeRecords = $this->Model->findAll([], null, 10);
 
 // OFFSET 50, LIMIT 10
-$activeRecords = $this->Model->findAll([], [50, 10]);
+$activeRecords = $this->Model->findAll([], null, [50, 10]);
 ```
 
 #### `save()`
